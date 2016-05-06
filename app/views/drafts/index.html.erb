@@ -1,0 +1,50 @@
+<table>
+  <tr>
+    <!-- Add a new draft -->
+    <td>
+      <%= form_tag(drafts_url, method: 'post') do %>
+      <h1>Select sets to draft from</h1>
+      <p>
+        <select name="set1">
+          <option value="soi">Shadows Over Innistrad (SOI)</option>
+          <option value="ktk">Khans of Tarkir (KTK)</option>
+        </select>
+      </p>
+      <p>
+        <select name="set2">
+          <option value="soi">Shadows Over Innistrad (SOI)</option>
+          <option value="ktk">Khans of Tarkir (KTK)</option>
+        </select>
+      </p>
+      <p>
+        <select name="set3">
+          <option value="soi">Shadows Over Innistrad (SOI)</option>
+          <option value="ktk">Khans of Tarkir (KTK)</option>
+        </select>
+      </p>
+      <div>
+        <%= submit_tag "Start Draft" %>
+      </div>
+      <% end %>
+    </td>
+
+    <!--Log of previous drafts -->
+    <td>
+      <h1>Draft History</h1>
+      <table>
+        <% @drafts.each do |draft| %>
+        <tr>
+          <td><img height="42" width="42" src="http://www.cardboardrepublic.com/wp-content/uploads/2013/04/mtg-wheel.jpg"/></td>
+          <td><%= draft.user_id %></td>
+          <td><%= draft.set1 %></td>
+          <td><%= draft.set2 %></td>
+          <td><%= draft.set3 %></td>
+          <td><%= link_to 'Show', draft_url(draft) %></td>
+          <td><%= link_to 'Edit', edit_draft_url(draft) %></td>
+        </tr>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+
+</table>

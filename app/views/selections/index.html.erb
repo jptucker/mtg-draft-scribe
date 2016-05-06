@@ -1,0 +1,30 @@
+<h1>Selections</h1>
+
+<p><%= link_to 'Add a New Selection', new_selection_url %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Card</th>
+      <th>Draft</th>
+      <th>Is sideboard</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @selections.each do |selection| %>
+    <tr>
+      <td><%= selection.card_id %></td>
+      <td><%= selection.draft_id %></td>
+      <td><%= selection.is_sideboard %></td>
+      <td><%= link_to 'Show', selection_url(selection) %></td>
+      <td><%= link_to 'Edit', edit_selection_url(selection) %></td>
+      <td><%= link_to 'Destroy', selection_url(selection), method: 'delete', data: { confirm: "Do you really want to delete this selection?" } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

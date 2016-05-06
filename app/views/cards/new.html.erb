@@ -1,0 +1,24 @@
+<h1>Card Search</h1>
+
+<tbody>
+<% @mtgcards.each do |mtgcard| %>
+  <tr>
+    <td><img src="<%= mtgcard.image_url %>"></td>
+  </tr>
+<% end %>
+</tbody>
+
+<!--<%= form_tag(cards_url, method: 'post') do %>-->
+<form action="/search" method="post">
+  <input type="text" name="q">
+  <input type="submit" value="Search">
+
+  <!--<div>
+    <%= label_tag :name %><br />
+    <%= text_field_tag :name %>
+  </div>
+
+  <div>
+    <%= submit_tag "Search" %>
+  </div>-->
+<% end %>

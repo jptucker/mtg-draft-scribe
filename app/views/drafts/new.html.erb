@@ -1,0 +1,46 @@
+<h1>New Draft</h1>
+
+Set 1: <% @draft.set1 %>
+Set 2: <% @draft.set2 %>
+Set 3: <% @draft.set3 %>
+
+<%= form_tag(drafts_url, method: 'post') do %>
+  <div>
+    <%= label_tag :user_id %><br />
+    <%= text_field_tag :user_id %>
+  </div>
+
+  <div>
+    <%= label_tag :set3 %><br />
+    <%= text_field_tag :set3 %>
+  </div>
+
+  <div>
+    <%= label_tag :set2 %><br />
+    <%= text_field_tag :set2 %>
+  </div>
+
+  <div>
+    <%= label_tag :set1 %><br />
+    <%= text_field_tag :set1 %>
+  </div>
+
+  <div>
+    <%= label_tag :color3 %><br />
+    <%= text_field_tag :color3 %>
+  </div>
+
+  <div>
+    <%= label_tag :color2 %><br />
+    <%= text_field_tag :color2 %>
+  </div>
+
+  <div>
+    <%= label_tag :color1 %><br />
+    <%= text_field_tag :color1 %>
+  </div>
+
+  <div>
+    <%= submit_tag "Create Draft" %>
+  </div>
+<% end %>

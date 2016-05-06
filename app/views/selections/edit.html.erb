@@ -1,0 +1,22 @@
+<h1>Editing Selection #<%= @selection.id %></h1>
+
+<%= form_tag(selection_url(@selection), method: 'patch') do %>
+  <div>
+    <%= label_tag :card_id %><br />
+    <%= text_field_tag :card_id, @selection.card_id %>
+  </div>
+
+  <div>
+    <%= label_tag :draft_id %><br />
+    <%= text_field_tag :draft_id, @selection.draft_id %>
+  </div>
+
+  <div>
+    <%= label_tag :is_sideboard %><br />
+    <%= check_box_tag :is_sideboard, 1, @selection.is_sideboard? %>
+  </div>
+
+  <div>
+    <%= submit_tag "Update Selection" %>
+  </div>
+<% end %>

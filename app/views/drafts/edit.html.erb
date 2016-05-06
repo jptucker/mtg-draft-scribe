@@ -1,0 +1,42 @@
+<h1>Editing Draft #<%= @draft.id %></h1>
+
+<%= form_tag(draft_url(@draft), method: 'patch') do %>
+  <div>
+    <%= label_tag :user_id %><br />
+    <%= text_field_tag :user_id, @draft.user_id %>
+  </div>
+
+  <div>
+    <%= label_tag :set3 %><br />
+    <%= text_field_tag :set3, @draft.set3 %>
+  </div>
+
+  <div>
+    <%= label_tag :set2 %><br />
+    <%= text_field_tag :set2, @draft.set2 %>
+  </div>
+
+  <div>
+    <%= label_tag :set1 %><br />
+    <%= text_field_tag :set1, @draft.set1 %>
+  </div>
+
+  <div>
+    <%= label_tag :color3 %><br />
+    <%= text_field_tag :color3, @draft.color3 %>
+  </div>
+
+  <div>
+    <%= label_tag :color2 %><br />
+    <%= text_field_tag :color2, @draft.color2 %>
+  </div>
+
+  <div>
+    <%= label_tag :color1 %><br />
+    <%= text_field_tag :color1, @draft.color1 %>
+  </div>
+
+  <div>
+    <%= submit_tag "Update Draft" %>
+  </div>
+<% end %>

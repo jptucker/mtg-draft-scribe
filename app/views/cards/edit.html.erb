@@ -1,0 +1,92 @@
+<h1>Editing Card #<%= @card.id %></h1>
+
+<%= form_tag(card_url(@card), method: 'patch') do %>
+  <div>
+    <%= label_tag :image_url %><br />
+    <%= text_field_tag :image_url, @card.image_url %>
+  </div>
+
+  <div>
+    <%= label_tag :multiverse_id %><br />
+    <%= text_field_tag :multiverse_id, @card.multiverse_id %>
+  </div>
+
+  <div>
+    <%= label_tag :is_planeswalker %><br />
+    <%= check_box_tag :is_planeswalker, 1, @card.is_planeswalker? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_land %><br />
+    <%= check_box_tag :is_land, 1, @card.is_land? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_enchantment %><br />
+    <%= check_box_tag :is_enchantment, 1, @card.is_enchantment? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_artifact %><br />
+    <%= check_box_tag :is_artifact, 1, @card.is_artifact? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_sorcery %><br />
+    <%= check_box_tag :is_sorcery, 1, @card.is_sorcery? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_instant %><br />
+    <%= check_box_tag :is_instant, 1, @card.is_instant? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_creature %><br />
+    <%= check_box_tag :is_creature, 1, @card.is_creature? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_colorless %><br />
+    <%= check_box_tag :is_colorless, 1, @card.is_colorless? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_blue %><br />
+    <%= check_box_tag :is_blue, 1, @card.is_blue? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_white %><br />
+    <%= check_box_tag :is_white, 1, @card.is_white? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_red %><br />
+    <%= check_box_tag :is_red, 1, @card.is_red? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_black %><br />
+    <%= check_box_tag :is_black, 1, @card.is_black? %>
+  </div>
+
+  <div>
+    <%= label_tag :is_green %><br />
+    <%= check_box_tag :is_green, 1, @card.is_green? %>
+  </div>
+
+  <div>
+    <%= label_tag :cmc %><br />
+    <%= text_field_tag :cmc, @card.cmc %>
+  </div>
+
+  <div>
+    <%= label_tag :name %><br />
+    <%= text_field_tag :name, @card.name %>
+  </div>
+
+  <div>
+    <%= submit_tag "Update Card" %>
+  </div>
+<% end %>

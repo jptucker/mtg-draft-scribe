@@ -1,0 +1,22 @@
+<h1>New Selection</h1>
+
+<%= form_tag(selections_url, method: 'post') do %>
+  <div>
+    <%= label_tag :card_id %><br />
+    <%= text_field_tag :card_id %>
+  </div>
+
+  <div>
+    <%= label_tag :draft_id %><br />
+    <%= text_field_tag :draft_id %>
+  </div>
+
+  <div>
+    <%= label_tag :is_sideboard %><br />
+    <%= check_box_tag :is_sideboard %>
+  </div>
+
+  <div>
+    <%= submit_tag "Create Selection" %>
+  </div>
+<% end %>
