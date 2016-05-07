@@ -3,8 +3,8 @@
 <tbody>
   <% @mtgcards.each do |mtgcard| %>
   <tr>
-    <%= link_to "add", :controller => "cards", :action => "add", :card_id => mtgcard.multiverse_id do %>
-    <%= image_tag(mtgcard.image_url, title: mtgcard.name) %>
+    <%= link_to :controller => "cards", :action => "add", :card_id => mtgcard.multiverse_id do %>
+    <%= image_tag(mtgcard.image_url) %>
     <% end %>
   </tr>
   <% end %>
