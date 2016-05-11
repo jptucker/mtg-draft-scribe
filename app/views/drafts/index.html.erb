@@ -6,22 +6,12 @@
       <h1>Select sets to draft from</h1>
       <p>
         <select name="set1">
-          <option value="soi">Shadows Over Innistrad (SOI)</option>
-          <option value="ktk">Khans of Tarkir (KTK)</option>
+          <% @sets.each do |set| %>
+          <option value="#{set.abbreviation}">#{set.name} (#{set.abbreviation})</option>
+          <% end %>
         </select>
       </p>
-      <p>
-        <select name="set2">
-          <option value="soi">Shadows Over Innistrad (SOI)</option>
-          <option value="ktk">Khans of Tarkir (KTK)</option>
-        </select>
-      </p>
-      <p>
-        <select name="set3">
-          <option value="soi">Shadows Over Innistrad (SOI)</option>
-          <option value="ktk">Khans of Tarkir (KTK)</option>
-        </select>
-      </p>
+
       <div>
         <%= submit_tag "Start Draft" %>
       </div>
@@ -39,8 +29,9 @@
           <td><%= draft.set1 %></td>
           <td><%= draft.set2 %></td>
           <td><%= draft.set3 %></td>
-          <td><%= link_to 'Show', draft_url(draft) %></td>
-          <td><%= link_to 'Edit', edit_draft_url(draft) %></td>
+          <td><%= link_to 'Open', draft_url(draft) %></td>
+          <td><%= link_to 'Delete', draft_url(draft), method: 'delete', data: { confirm: "Do you really want to delete this draft?" } %></td>
+
         </tr>
         <% end %>
       </table>

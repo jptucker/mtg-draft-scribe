@@ -1,6 +1,7 @@
 <h1>Card Search</h1>
 
 <tbody>
+  <% if @hasResults  %>
   <% @mtgcards.each do |mtgcard| %>
   <tr>
     <%= link_to :controller => "cards", :action => "add", :card_id => mtgcard.multiverse_id do %>
@@ -8,9 +9,13 @@
     <% end %>
   </tr>
   <% end %>
+  <% else %>
+  <tr>
+    <img height="200" src="/assets/NoResults.png"/>
+  </tr>
+  <% end %>
 </tbody>
 
-<!--<%= form_tag(cards_url, method: 'post') do %>-->
 <form action="/cards/search" method="get">
   <input type="text" name="q">
   <input type="submit" value="Search">
@@ -24,4 +29,4 @@
 <div>
 <%= submit_tag "Search" %>
 </div> -->
-<% end %>
+</form>

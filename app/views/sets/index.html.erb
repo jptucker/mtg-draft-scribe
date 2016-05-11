@@ -1,0 +1,28 @@
+<h1>Sets</h1>
+
+<p><%= link_to 'Add a New Set', new_set_url %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Abbreviation</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @sets.each do |set| %>
+    <tr>
+      <td><%= set.abbreviation %></td>
+      <td><%= set.name %></td>
+      <td><%= link_to 'Show', set_url(set) %></td>
+      <td><%= link_to 'Edit', edit_set_url(set) %></td>
+      <td><%= link_to 'Destroy', set_url(set), method: 'delete', data: { confirm: "Do you really want to delete this set?" } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

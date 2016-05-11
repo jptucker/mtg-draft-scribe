@@ -1,96 +1,73 @@
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-<h1>Draft #<%= @draft.id %></h1>
-
-<dl>
-  <dt>User</dt>
-  <dd><%= @draft.user_id %></dd>
-
-  <dt>Set3</dt>
-  <dd><%= @draft.set3 %></dd>
-
-  <dt>Set2</dt>
-  <dd><%= @draft.set2 %></dd>
-
-  <dt>Set1</dt>
-  <dd><%= @draft.set1 %></dd>
-
-  <dt>Color3</dt>
-  <dd><%= @draft.color3 %></dd>
-
-  <dt>Color2</dt>
-  <dd><%= @draft.color2 %></dd>
-
-  <dt>Color1</dt>
-  <dd><%= @draft.color1 %></dd>
-
-</dl>
+<h1><%= @draft.set1.upcase %> / <%= @draft.set2.upcase %> / <%= @draft.set3.upcase %> Draft</h1>
 
 <tbody>
-  <% @cards.each do |card| %>
+  <% @fullcardlist.each do |card| %>
   <tr>
-    <%= image_tag(card.image_url, title: card.name) %>
+    <%= link_to :controller => "cards", :action => "sideboard", :selection_id => card["selection_id"] do %>
+    <%= image_tag(card["image"]) %>
+    <% end %>
   </tr>
   <% end %>
 </tbody>
 
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script>
 $(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Stacked column chart'
-        },
-        xAxis: {
-            categories: <%= @chart_power_xaxis_categories = ["0","1","2","3","4","5","6","7+"] %>
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '# Cards'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                }
-            }
-        },
-        legend: {
-            align: 'right',
-            x: -30,
-            verticalAlign: 'top',
-            y: 25,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-            borderColor: '#CCC',
-            borderWidth: 1,
-            shadow: false
-        },
-        tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-                dataLabels: {
-                    enabled: true,
-                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                    style: {
-                        textShadow: '0 0 3px black'
-                    }
-                }
-            }
-        },
-        series: [{
-            name: 'CMC',
-            data: <%= @chart_power_seriesdata %>
-        }]
-    });
+  $('#container').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Stacked column chart'
+    },
+    xAxis: {
+      categories: <%= @chart_power_xaxis_categories = ["0","1","2","3","4","5","6","7+"] %>
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: '# Cards'
+      },
+      stackLabels: {
+        enabled: true,
+        style: {
+          fontWeight: 'bold',
+          color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+        }
+      }
+    },
+    legend: {
+      align: 'right',
+      x: -30,
+      verticalAlign: 'top',
+      y: 25,
+      floating: true,
+      backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+      borderColor: '#CCC',
+      borderWidth: 1,
+      shadow: false
+    },
+    tooltip: {
+      headerFormat: '<b>{point.x}</b><br/>',
+      pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          style: {
+            textShadow: '0 0 3px black'
+          }
+        }
+      }
+    },
+    series: [{
+      name: 'CMC',
+      data: <%= @chart_power_seriesdata %>
+    }]
+  });
 });
+</script>
