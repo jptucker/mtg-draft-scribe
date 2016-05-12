@@ -1,6 +1,6 @@
-class CreateSets < ActiveRecord::Migration
+class CreateCardsets < ActiveRecord::Migration
   def change
-    create_table :sets do |t|
+    create_table :cardsets do |t|
       t.string :abbreviation
       t.string :name
     end

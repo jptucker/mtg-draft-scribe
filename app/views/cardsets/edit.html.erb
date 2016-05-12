@@ -1,0 +1,17 @@
+<h1>Editing Cardset #<%= @cardset.id %></h1>
+
+<%= form_tag(cardset_url(@cardset), method: 'patch') do %>
+  <div>
+    <%= label_tag :abbreviation %><br />
+    <%= text_field_tag :abbreviation, @cardset.abbreviation %>
+  </div>
+
+  <div>
+    <%= label_tag :name %><br />
+    <%= text_field_tag :name, @cardset.name %>
+  </div>
+
+  <div>
+    <%= submit_tag "Update Cardset" %>
+  </div>
+<% end %>

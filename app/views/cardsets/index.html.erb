@@ -1,0 +1,28 @@
+<h1>Cardsets</h1>
+
+<p><%= link_to 'Add a New Cardset', new_cardset_url %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Abbreviation</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @cardsets.each do |cardset| %>
+    <tr>
+      <td><%= cardset.abbreviation %></td>
+      <td><%= cardset.name %></td>
+      <td><%= link_to 'Show', cardset_url(cardset) %></td>
+      <td><%= link_to 'Edit', edit_cardset_url(cardset) %></td>
+      <td><%= link_to 'Destroy', cardset_url(cardset), method: 'delete', data: { confirm: "Do you really want to delete this cardset?" } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

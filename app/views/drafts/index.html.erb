@@ -7,7 +7,21 @@
       <p>
         <select name="set1">
           <% @sets.each do |set| %>
-          <option value="#{set.abbreviation}">#{set.name} (#{set.abbreviation})</option>
+          <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
+          <% end %>
+        </select>
+      </p>
+      <p>
+        <select name="set2">
+          <% @sets.each do |set| %>
+          <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
+          <% end %>
+        </select>
+      </p>
+      <p>
+        <select name="set3">
+          <% @sets.each do |set| %>
+          <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
           <% end %>
         </select>
       </p>

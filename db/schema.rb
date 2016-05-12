@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511185309) do
+ActiveRecord::Schema.define(version: 20160512000544) do
 
   create_table "cards", force: :cascade do |t|
     t.string  "image_url"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 20160511185309) do
     t.string  "name"
   end
 
+  create_table "cardsets", force: :cascade do |t|
+    t.string "abbreviation"
+    t.string "name"
+  end
+
   create_table "drafts", force: :cascade do |t|
     t.string "user_id"
     t.string "set3"
@@ -47,11 +52,6 @@ ActiveRecord::Schema.define(version: 20160511185309) do
     t.string  "card_id"
     t.string  "draft_id"
     t.boolean "is_sideboard"
-  end
-
-  create_table "sets", force: :cascade do |t|
-    t.string "abbreviation"
-    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|
