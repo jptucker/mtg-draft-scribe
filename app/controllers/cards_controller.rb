@@ -4,6 +4,7 @@ class CardsController < ApplicationController
     selection = Selection.find_by(id: params[:selection_id])
     selection.is_sideboard = !selection.is_sideboard
     selection.save
+    redirect_to "/drafts/" + selection.draft_id.to_s , notice: "Card sideboard is now: " + selection.is_sideboard.to_s
   end
 
   def search

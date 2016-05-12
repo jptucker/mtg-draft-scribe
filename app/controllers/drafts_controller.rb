@@ -126,7 +126,7 @@ class DraftsController < ApplicationController
     @draft.color1 = params[:color1]
 
     if @draft.save
-      redirect_to :action => :show , notice: "Draft created successfully."
+      redirect_to "/drafts/" + @draft.id.to_s , notice: "Draft created successfully."
     else
       render 'index'
     end
