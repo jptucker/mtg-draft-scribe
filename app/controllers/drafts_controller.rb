@@ -2,13 +2,28 @@ class DraftsController < ApplicationController
 
   def index
     @drafts = Draft.all
+    @sets = Cardset.all
   end
 
   def show
     @draft = Draft.find_by(id: params[:id])
     selections = Selection.where(:draft_id => @draft.id)
+    @fullcardlist = Array.new
     @cards = Array.new
-    selections.each {|sel| @cards.push(Card.find_by(:id => sel.card_id)) }
+    selections.each { |sel|
+      card = Card.find_by(:id => sel.card_id)
+
+      #Load played cards into the @cards array
+      if !sel.is_sideboard
+        @cards.push(card)
+      end
+
+      #Load all cards into the @fullcardlist array
+      entry = Hash.new
+
+      entry = { "image" => card.image_url, "selection_id" => sel.id }
+      @fullcardlist.push(entry)
+    }
 
     @chart_power_seriesdata = [0,0,0,0,0,0,0,0]
 
@@ -93,13 +108,11 @@ class DraftsController < ApplicationController
     @chart_power_xaxis_categories = ["0","1","2","3","4","5","6","7+"]
 
     @chart_color_data = [['Blue',num_blue], ['Black',num_black],['Red',num_red],['Green',num_green],['White',num_white],['Colorless',num_colorless],['Multi',num_multi]]
+    @chart_color_colors = ['#67C1F5','#848484','#F85555','#26B569','#FCFCC1','#D0DADC','#C6B471']
 
     @chart_type_xaxis_categories = ["Creatures","Instants","Sorceries","Artifacts","Enchantments","Lands","Other"]
     @chart_type_seriesdata = [num_creatures,num_instants,num_sorceries,num_artifacts,num_enchantments,num_lands,num_other]
 
-  end
-
-  def new
   end
 
   def create
@@ -113,30 +126,9 @@ class DraftsController < ApplicationController
     @draft.color1 = params[:color1]
 
     if @draft.save
-      redirect_to drafts_url, notice: "Draft created successfully."
+      redirect_to :action => :show , notice: "Draft created successfully."
     else
-      render 'new'
-    end
-  end
-
-  def edit
-    @draft = Draft.find_by(id: params[:id])
-  end
-
-  def update
-    @draft = Draft.find_by(id: params[:id])
-    @draft.user_id = params[:user_id]
-    @draft.set3 = params[:set3]
-    @draft.set2 = params[:set2]
-    @draft.set1 = params[:set1]
-    @draft.color3 = params[:color3]
-    @draft.color2 = params[:color2]
-    @draft.color1 = params[:color1]
-
-    if @draft.save
-      redirect_to drafts_url, notice: "Draft updated successfully."
-    else
-      render 'edit'
+      render 'index'
     end
   end
 

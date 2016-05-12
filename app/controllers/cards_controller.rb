@@ -1,20 +1,29 @@
 class CardsController < ApplicationController
 
-  def index
-    #@mtgcards = MTG::Card.where(name: params[:q]).all
-  end
-
-  def show
-    @card = Card.find_by(id: params[:id])
+  def sideboard
+    selection = Selection.find_by(id: params[:selection_id])
+    selection.is_sideboard = !selection.is_sideboard
+    selection.save
   end
 
   def search
-    if params[:q].present?
-      @mtgcards = MTG::Card.where(name: params[:q]).all
+    if !params[:q].present?
+      @hasResults = false
+      # @mtgcards = MTG::Card.new
     else
-      @mtgcards = MTG::Card.where(name: 'avacyn').all
+      @mtgcards = MTG::Card.where(name: params[:q]).where(set: 'ktk,soi').all
+      if @mtgcards.size == 0
+        @hasResults = false
+      else
+        @hasResults = true
+        # remove double-faced
+        @mtgcards.each { |card|
+          if card.layout=="double-faced" && card.cmc.nil?
+            @mtgcards.delete(card)
+          end
+        }
+      end
     end
-    render 'search'
   end
 
   def add
@@ -56,75 +65,12 @@ class CardsController < ApplicationController
       selection.draft_id = "3"
       selection.card_id = card.id
       if selection.save
-        redirect_to cards_url, notice: "Card created successfully."
+        render 'search', notice: "Card created successfully."
+      else
+        render 'search', error: "Card creation failed."
       end
     else
-      render 'index'
+      render 'search', error: "Card creation failed."
     end
-  end
-
-  def create
-    @card = Card.new
-    @card.image_url = params[:image_url]
-    @card.multiverse_id = params[:multiverse_id]
-    @card.is_planeswalker = params[:is_planeswalker]
-    @card.is_land = params[:is_land]
-    @card.is_enchantment = params[:is_enchantment]
-    @card.is_artifact = params[:is_artifact]
-    @card.is_sorcery = params[:is_sorcery]
-    @card.is_instant = params[:is_instant]
-    @card.is_creature = params[:is_creature]
-    @card.is_colorless = params[:is_colorless]
-    @card.is_blue = params[:is_blue]
-    @card.is_white = params[:is_white]
-    @card.is_red = params[:is_red]
-    @card.is_black = params[:is_black]
-    @card.is_green = params[:is_green]
-    @card.cmc = params[:cmc]
-    @card.name = params[:name]
-
-    if @card.save
-      redirect_to cards_url, notice: "Card created successfully."
-    else
-      render 'new'
-    end
-  end
-
-  def edit
-    @card = Card.find_by(id: params[:id])
-  end
-
-  def update
-    @card = Card.find_by(id: params[:id])
-    @card.image_url = params[:image_url]
-    @card.multiverse_id = params[:multiverse_id]
-    @card.is_planeswalker = params[:is_planeswalker]
-    @card.is_land = params[:is_land]
-    @card.is_enchantment = params[:is_enchantment]
-    @card.is_artifact = params[:is_artifact]
-    @card.is_sorcery = params[:is_sorcery]
-    @card.is_instant = params[:is_instant]
-    @card.is_creature = params[:is_creature]
-    @card.is_colorless = params[:is_colorless]
-    @card.is_blue = params[:is_blue]
-    @card.is_white = params[:is_white]
-    @card.is_red = params[:is_red]
-    @card.is_black = params[:is_black]
-    @card.is_green = params[:is_green]
-    @card.cmc = params[:cmc]
-    @card.name = params[:name]
-
-    if @card.save
-      redirect_to cards_url, notice: "Card updated successfully."
-    else
-      render 'edit'
-    end
-  end
-
-  def destroy
-    @card = Card.find_by(id: params[:id])
-    @card.destroy
-
-    redirect_to cards_url, notice: "Card deleted."
   end
 end

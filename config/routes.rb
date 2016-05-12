@@ -1,36 +1,53 @@
 Rails.application.routes.draw do
 
+  # Routes for the Cardset resource:
+  # CREATE
+  get '/cardsets/new', controller: 'cardsets', action: 'new', as: 'new_cardset'
+  post '/cardsets', controller: 'cardsets', action: 'create', as: 'cardsets'
+
+  # READ
+  get '/cardsets', controller: 'cardsets', action: 'index'
+  get '/cardsets/:id', controller: 'cardsets', action: 'show', as: 'cardset'
+
+  # UPDATE
+  get '/cardsets/:id/edit', controller: 'cardsets', action: 'edit', as: 'edit_cardset'
+  patch '/cardsets/:id', controller: 'cardsets', action: 'update'
+
+  # DELETE
+  delete '/cardsets/:id', controller: 'cardsets', action: 'destroy'
+  #------------------------------
+
     get("/", { :controller => "drafts", :action => "index" })
 
   # Routes for the Selection resource:
   # CREATE
-  get '/selections/new', controller: 'selections', action: 'new', as: 'new_selection'
-  post '/selections', controller: 'selections', action: 'create', as: 'selections'
+  # get '/selections/new', controller: 'selections', action: 'new', as: 'new_selection'
+  # post '/selections', controller: 'selections', action: 'create', as: 'selections'
 
   # READ
-  get '/selections', controller: 'selections', action: 'index'
-  get '/selections/:id', controller: 'selections', action: 'show', as: 'selection'
+  # get '/selections', controller: 'selections', action: 'index'
+  # get '/selections/:id', controller: 'selections', action: 'show', as: 'selection'
 
   # UPDATE
-  get '/selections/:id/edit', controller: 'selections', action: 'edit', as: 'edit_selection'
-  patch '/selections/:id', controller: 'selections', action: 'update'
+  # get '/selections/:id/edit', controller: 'selections', action: 'edit', as: 'edit_selection'
+  # patch '/selections/:id', controller: 'selections', action: 'update'
 
   # DELETE
-  delete '/selections/:id', controller: 'selections', action: 'destroy'
+  # delete '/selections/:id', controller: 'selections', action: 'destroy'
   #------------------------------
 
   # Routes for the Draft resource:
   # CREATE
-  get '/drafts/new', controller: 'drafts', action: 'new', as: 'new_draft'
+  # get '/drafts/new', controller: 'drafts', action: 'new', as: 'new_draft'
   post '/drafts', controller: 'drafts', action: 'create', as: 'drafts'
 
   # READ
   get '/drafts', controller: 'drafts', action: 'index'
-  get '/drafts/:id', controller: 'drafts', action: 'show', as: 'draft'
+  get '/drafts/:id', controller: 'drafts', action: 'show'
 
   # UPDATE
-  get '/drafts/:id/edit', controller: 'drafts', action: 'edit', as: 'edit_draft'
-  patch '/drafts/:id', controller: 'drafts', action: 'update'
+  # get '/drafts/:id/edit', controller: 'drafts', action: 'edit', as: 'edit_draft'
+  # patch '/drafts/:id', controller: 'drafts', action: 'update'
 
   # DELETE
   delete '/drafts/:id', controller: 'drafts', action: 'destroy'
@@ -39,18 +56,19 @@ Rails.application.routes.draw do
   # Routes for the Card resource:
   get '/cards/search', controller: 'cards', action: 'search'
   get '/cards/add', controller: 'cards', action: 'add'
+  get '/cards/sideboard', controller: 'cards', action: 'sideboard'
 
   # CREATE
-  get '/cards/new', controller: 'cards', action: 'new', as: 'new_card'
-  post '/cards', controller: 'cards', action: 'create', as: 'cards'
+  # get '/cards/new', controller: 'cards', action: 'new', as: 'new_card'
+  # post '/cards', controller: 'cards', action: 'create', as: 'cards'
 
   # READ
-  get '/cards', controller: 'cards', action: 'index'
-  get '/cards/:id', controller: 'cards', action: 'show', as: 'card'
+  # get '/cards', controller: 'cards', action: 'index'
+  # get '/cards/:id', controller: 'cards', action: 'show', as: 'card'
 
   # UPDATE
-  get '/cards/:id/edit', controller: 'cards', action: 'edit', as: 'edit_card'
-  patch '/cards/:id', controller: 'cards', action: 'update'
+  # get '/cards/:id/edit', controller: 'cards', action: 'edit', as: 'edit_card'
+  # patch '/cards/:id', controller: 'cards', action: 'update'
 
   # DELETE
   delete '/cards/:id', controller: 'cards', action: 'destroy'
@@ -72,7 +90,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :users
-  resources :cardss
+  resources :cards
   resources :drafts
   resources :selections
 
