@@ -47,11 +47,12 @@ class CardsController < ApplicationController
     end
 
     if !magicCard.colors.nil?
-      card.is_blue = magicCard.colors.include? 'blue'
-      card.is_white = magicCard.colors.include? 'white'
-      card.is_red = magicCard.colors.include? 'red'
-      card.is_black = magicCard.colors.include? 'black'
-      card.is_green = magicCard.colors.include? 'green'
+      card.is_blue = magicCard.colors.include? 'Blue'
+      card.is_white = magicCard.colors.include? 'White'
+      card.is_red = magicCard.colors.include? 'Red'
+      card.is_black = magicCard.colors.include? 'Black'
+      card.is_green = magicCard.colors.include? 'Green'
+      card.is_colorless = false
     else
       card.is_blue = card.is_white = card.is_red = card.is_black = card.is_green = false
       card.is_colorless = true

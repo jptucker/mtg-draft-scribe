@@ -7,6 +7,7 @@ class DraftsController < ApplicationController
 
   def show
     @draft = Draft.find_by(id: params[:id])
+    session[:draft_id] = @draft.id
     selections = Selection.where(:draft_id => @draft.id)
     @fullcardlist = Array.new
     @cards = Array.new
@@ -25,7 +26,7 @@ class DraftsController < ApplicationController
       @fullcardlist.push(entry)
     }
 
-    @chart_power_seriesdata = [0,0,0,0,0,0,0,0]
+    chart_power_seriesdata = [0,0,0,0,0,0,0,0]
 
     num_blue = 0
     num_black = 0
@@ -46,7 +47,8 @@ class DraftsController < ApplicationController
 
     @cards.each { |card|
       cmc = [card.cmc.to_i,7].min
-      @chart_power_seriesdata[cmc] += 1
+      chart_power_seriesdata[cmc] += 1
+      count_colors = 0
       count_colors +=1 if card.is_blue
       count_colors +=1 if card.is_black
       count_colors +=1 if card.is_red
@@ -105,9 +107,7 @@ class DraftsController < ApplicationController
       end
     }
 
-    @chart_power_xaxis_categories = ["0","1","2","3","4","5","6","7+"]
-
-    @chart_color_data = [['Blue',num_blue], ['Black',num_black],['Red',num_red],['Green',num_green],['White',num_white],['Colorless',num_colorless],['Multi',num_multi]]
+    @chart_color_data = [["Blue",num_blue.to_s], ["Black", num_black.to_s], ["Red", num_red.to_s], ["Green", num_green.to_s], ["White", num_white.to_s], ["Colorless", num_colorless.to_s], ["Multi", num_multi.to_s]]
     @chart_color_colors = ['#67C1F5','#848484','#F85555','#26B569','#FCFCC1','#D0DADC','#C6B471']
 
     @chart_type_xaxis_categories = ["Creatures","Instants","Sorceries","Artifacts","Enchantments","Lands","Other"]
@@ -127,6 +127,7 @@ class DraftsController < ApplicationController
 
     if @draft.save
       redirect_to "/drafts/" + @draft.id.to_s , notice: "Draft created successfully."
+      session[:draft_id] = @draft.id
     else
       render 'index'
     end
