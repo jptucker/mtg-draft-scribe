@@ -1,23 +1,24 @@
 Rails.application.routes.draw do
+  #------------------------------
+
+  get("/", { :controller => "drafts", :action => "index" })
 
   # Routes for the Cardset resource:
   # CREATE
-  get '/cardsets/new', controller: 'cardsets', action: 'new', as: 'new_cardset'
-  post '/cardsets', controller: 'cardsets', action: 'create', as: 'cardsets'
+  # get '/cardsets/new', controller: 'cardsets', action: 'new', as: 'new_cardset'
+  # post '/cardsets', controller: 'cardsets', action: 'create', as: 'cardsets'
 
   # READ
-  get '/cardsets', controller: 'cardsets', action: 'index'
-  get '/cardsets/:id', controller: 'cardsets', action: 'show', as: 'cardset'
+  # get '/cardsets', controller: 'cardsets', action: 'index'
+  # get '/cardsets/:id', controller: 'cardsets', action: 'show', as: 'cardset'
 
   # UPDATE
-  get '/cardsets/:id/edit', controller: 'cardsets', action: 'edit', as: 'edit_cardset'
-  patch '/cardsets/:id', controller: 'cardsets', action: 'update'
+  # get '/cardsets/:id/edit', controller: 'cardsets', action: 'edit', as: 'edit_cardset'
+  # patch '/cardsets/:id', controller: 'cardsets', action: 'update'
 
   # DELETE
-  delete '/cardsets/:id', controller: 'cardsets', action: 'destroy'
+  # delete '/cardsets/:id', controller: 'cardsets', action: 'destroy'
   #------------------------------
-
-    get("/", { :controller => "drafts", :action => "index" })
 
   # Routes for the Selection resource:
   # CREATE
@@ -33,7 +34,7 @@ Rails.application.routes.draw do
   # patch '/selections/:id', controller: 'selections', action: 'update'
 
   # DELETE
-  # delete '/selections/:id', controller: 'selections', action: 'destroy'
+  delete '/selections/:id', controller: 'selections', action: 'delete'
   #------------------------------
 
   # Routes for the Draft resource:

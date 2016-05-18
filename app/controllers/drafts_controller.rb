@@ -22,11 +22,12 @@ class DraftsController < ApplicationController
       #Load all cards into the @fullcardlist array
       entry = Hash.new
 
-      entry = { "image" => card.image_url, "selection_id" => sel.id }
+      entry = { "image" => card.image_url, "selection_id" => sel.id, "is_sideboard" => sel.is_sideboard }
       @fullcardlist.push(entry)
     }
 
-    chart_power_seriesdata = [0,0,0,0,0,0,0,0]
+    @chart_power_serieslabels = ["0","1","2","3","4","5","6","7+"]
+    powerdata = [0,0,0,0,0,0,0,0]
 
     num_blue = 0
     num_black = 0
@@ -47,7 +48,7 @@ class DraftsController < ApplicationController
 
     @cards.each { |card|
       cmc = [card.cmc.to_i,7].min
-      chart_power_seriesdata[cmc] += 1
+      powerdata[cmc] += 1
       count_colors = 0
       count_colors +=1 if card.is_blue
       count_colors +=1 if card.is_black
@@ -107,11 +108,72 @@ class DraftsController < ApplicationController
       end
     }
 
-    @chart_color_data = [["Blue",num_blue.to_s], ["Black", num_black.to_s], ["Red", num_red.to_s], ["Green", num_green.to_s], ["White", num_white.to_s], ["Colorless", num_colorless.to_s], ["Multi", num_multi.to_s]]
-    @chart_color_colors = ['#67C1F5','#848484','#F85555','#26B569','#FCFCC1','#D0DADC','#C6B471']
+    @chart_color_data = Array.new
+    @chart_color_colors = Array.new
+    if num_blue > 0
+      @chart_color_data.push(["Blue",num_blue.to_s])
+      @chart_color_colors.push("#67C1F5")
+    end
+    if num_black > 0
+      @chart_color_data.push(["Black",num_black.to_s])
+      @chart_color_colors.push("#848484")
+    end
+    if num_red > 0
+      @chart_color_data.push(["Red",num_red.to_s])
+      @chart_color_colors.push("#F85555")
+    end
+    if num_green > 0
+      @chart_color_data.push(["Green",num_green.to_s])
+      @chart_color_colors.push("#26B569")
+    end
+    if num_white > 0
+      @chart_color_data.push(["White",num_white.to_s])
+      @chart_color_colors.push("#FCFCC1")
+    end
+    if num_colorless > 0
+      @chart_color_data.push(["Colorless",num_colorless.to_s])
+      @chart_color_colors.push("#D0DADC")
+    end
+    if num_multi > 0
+      @chart_color_data.push(["Multi",num_multi.to_s])
+      @chart_color_colors.push("#C6B471")
+    end
+
+    @chart_power_seriesdata = Array.new
+    powerdata.each_with_index do |value, index|
+      @chart_power_seriesdata.push([@chart_power_serieslabels[index],powerdata[index].to_s])
+    end
 
     @chart_type_xaxis_categories = ["Creatures","Instants","Sorceries","Artifacts","Enchantments","Lands","Other"]
-    @chart_type_seriesdata = [num_creatures,num_instants,num_sorceries,num_artifacts,num_enchantments,num_lands,num_other]
+    @chart_type_seriesdata = Array.new
+    @chart_type_seriesdata.push([@chart_type_xaxis_categories[0],num_creatures.to_s])
+    @chart_type_seriesdata.push([@chart_type_xaxis_categories[1],num_instants.to_s])
+    @chart_type_seriesdata.push([@chart_type_xaxis_categories[2],num_sorceries.to_s])
+    @chart_type_seriesdata.push([@chart_type_xaxis_categories[3],num_artifacts.to_s])
+    @chart_type_seriesdata.push([@chart_type_xaxis_categories[4],num_enchantments.to_s])
+    @chart_type_seriesdata.push([@chart_type_xaxis_categories[5],num_lands.to_s])
+    @chart_type_seriesdata.push([@chart_type_xaxis_categories [6],num_other.to_s])
+
+    #Determine draft colors
+    @draft.color1 = @draft.color2 = @draft.color3 = nil
+    sumcolors = num_white + num_blue + num_black + num_green + num_red
+    if sumcolors > 0
+      pctwhite = num_white.to_f / sumcolors
+      pctblue = num_blue.to_f / sumcolors
+      pctblack = num_black.to_f / sumcolors
+      pctgreen = num_green.to_f / sumcolors
+      pctred = num_red.to_f / sumcolors
+      colorshash = {"white" => pctwhite, "blue" => pctblue, "black" => pctblack, "green" => pctgreen, "red" => pctred}
+      topcolor = colorshash.max_by{|k,v| v}
+      @draft.color1 = topcolor[0] if topcolor[1] >= 0.3
+      colorshash.delete(topcolor[0])
+      secondcolor = colorshash.max_by{|k,v| v}
+      @draft.color2 = secondcolor[0] if secondcolor[1] >= 0.3
+      colorshash.delete(secondcolor[0])
+      thirdcolor = colorshash.max_by{|k,v| v}
+      @draft.color3 = thirdcolor[0] if thirdcolor[1] >= 0.3
+    end
+    @draft.save
 
   end
 
@@ -131,6 +193,12 @@ class DraftsController < ApplicationController
     else
       render 'index'
     end
+  end
+
+  def remove
+    selection = Selection.find_by(id: params[:selection_id])
+    selection.destroy
+    redirect_to "/drafts/" + selection.draft_id.to_s
   end
 
   def destroy

@@ -15,7 +15,7 @@
 */
 
 
-/*
+
 .parent{
   position:relative;
   display: inline;
@@ -23,7 +23,6 @@
 
 .inner{
   position: absolute;
-  height: "20px";
   bottom: 0;
   left: 0;
-}*/
+}

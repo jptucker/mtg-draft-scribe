@@ -4,7 +4,7 @@ class CardsController < ApplicationController
     selection = Selection.find_by(id: params[:selection_id])
     selection.is_sideboard = !selection.is_sideboard
     selection.save
-    redirect_to "/drafts/" + selection.draft_id.to_s , notice: "Card sideboard is now: " + selection.is_sideboard.to_s
+    redirect_to "/drafts/" + selection.draft_id.to_s
   end
 
   def search
@@ -64,7 +64,7 @@ class CardsController < ApplicationController
     if card.save
       selection = Selection.new
       selection.is_sideboard = false
-      selection.draft_id = "3"
+      selection.draft_id = session[:draft_id]
       selection.card_id = card.id
       if selection.save
         render 'search', notice: "Card created successfully."

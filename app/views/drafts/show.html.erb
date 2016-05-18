@@ -1,16 +1,79 @@
-<h1><%= @draft.set1.upcase %> / <%= @draft.set2.upcase %> / <%= @draft.set3.upcase %> Draft</h1>
+<h1><%= @draft.set1.upcase %> / <%= @draft.set2.upcase %> / <%= @draft.set3.upcase %> Draft
+<% if  @draft.color1.present? %>
+  <% if @draft.color1 == "black" %>
+    <img src="/assets/colors/black.png" height="30px"/>
+  <% end %>
+  <% if @draft.color1 == "blue" %>
+    <img src="/assets/colors/blue.png" height="30px"/>
+  <% end %>
+  <% if @draft.color1 == "green" %>
+    <img src="/assets/colors/green.png" height="30px"/>
+  <% end %>
+  <% if @draft.color1 == "red" %>
+    <img src="/assets/colors/red.png" height="30px"/>
+  <% end %>
+  <% if @draft.color1 == "white" %>
+    <img src="/assets/colors/white.png" height="30px"/>
+  <% end %>
+<% end %>
+<% if  @draft.color2.present? %>
+  <% if @draft.color2 == "black" %>
+    <img src="/assets/colors/black.png" height="30px"/>
+  <% end %>
+  <% if @draft.color2 == "blue" %>
+    <img src="/assets/colors/blue.png" height="30px"/>
+  <% end %>
+  <% if @draft.color2 == "green" %>
+    <img src="/assets/colors/green.png" height="30px"/>
+  <% end %>
+  <% if @draft.color2 == "red" %>
+    <img src="/assets/colors/red.png" height="30px"/>
+  <% end %>
+  <% if @draft.color2 == "white" %>
+    <img src="/assets/colors/white.png" height="30px"/>
+  <% end %>
+<% end %>
+<% if  @draft.color3.present? %>
+  <% if @draft.color3 == "black" %>
+    <img src="/assets/colors/black.png" height="30px"/>
+  <% end %>
+  <% if @draft.color3 == "blue" %>
+    <img src="/assets/colors/blue.png" height="30px"/>
+  <% end %>
+  <% if @draft.color3 == "green" %>
+    <img src="/assets/colors/green.png" height="30px"/>
+  <% end %>
+  <% if @draft.color3 == "red" %>
+    <img src="/assets/colors/red.png" height="30px"/>
+  <% end %>
+  <% if @draft.color3 == "white" %>
+    <img src="/assets/colors/white.png" height="30px"/>
+  <% end %>
+<% end %>
+</h1>
 
 <tbody>
   <% @fullcardlist.each do |card| %>
   <tr>
-    <%= link_to :controller => "cards", :action => "sideboard", :selection_id => card["selection_id"] do %>
-    <%= image_tag(card["image"]) %>
-    <!--<div class="inner"><img src="/assets/close.png" /></div>-->
-    <% end %>
+    <div class="parent" >
+      <%= image_tag(card["image"]) %>
+      <div class="inner">
+        <%= link_to :controller => "selections", :action => 'delete', :selection_id => card["selection_id"] do %>
+        <img src="/assets/delete.png" height="40px"/>
+        <% end %>
+        <%= link_to :controller => "cards", :action => "sideboard", :selection_id => card["selection_id"] do %>
+        <% if card["is_sideboard"] %>
+          <img src="/assets/unsideboard.png" height="40px"/>
+        <% else %>
+          <img src="/assets/sideboard.png" height="40px"/>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
   </tr>
   <% end %>
 </tbody>
 
-<%= column_chart [{name: "CMC", data: [["0",0],["1",1],["2",3],["3",5],["4",4],["5",5],["6",2],["7+",1]]}] %>
-<%= pie_chart [["Blue",1],["Black",3],["Red",5],["Green",2],["White",3],["Colorless",3],["Multi",0]], colors: @chart_color_colors %>
+<%= column_chart [{name: "Power Curve", data: @chart_power_seriesdata}] %>
+<%= column_chart [{name: "Card Types", data: @chart_type_seriesdata}] %>
 <%= pie_chart @chart_color_data, colors: @chart_color_colors %>

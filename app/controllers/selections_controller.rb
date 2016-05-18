@@ -41,10 +41,10 @@ class SelectionsController < ApplicationController
     end
   end
 
-  def destroy
-    @selection = Selection.find_by(id: params[:id])
+  def delete
+    @selection = Selection.find_by(id: params[:selection_id])
     @selection.destroy
 
-    redirect_to selections_url, notice: "Selection deleted."
+    redirect_to drafts_url, notice: "Card removed"
   end
 end
