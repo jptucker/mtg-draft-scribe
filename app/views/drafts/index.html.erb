@@ -1,55 +1,61 @@
-<table>
+<table class="homelayout">
   <tr>
-    <!-- Add a new draft -->
-    <td>
-      <%= form_tag(drafts_url, method: 'post') do %>
-      <h1>Select sets to draft from</h1>
-      <p>
-        <select name="set1">
-          <% @sets.each do |set| %>
-          <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
-          <% end %>
-        </select>
-      </p>
-      <p>
-        <select name="set2">
-          <% @sets.each do |set| %>
-          <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
-          <% end %>
-        </select>
-      </p>
-      <p>
-        <select name="set3">
-          <% @sets.each do |set| %>
-          <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
-          <% end %>
-        </select>
-      </p>
+    <td class="homeleft">
+      <div class="hometop">
+        <!-- Add a new draft -->
+        <%= form_tag(drafts_url, method: 'post') do %>
+        <h1>Select sets to draft from</h1>
+        <p>
+          <select name="set1">
+            <% @sets.each do |set| %>
+            <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
+            <% end %>
+          </select>
+        </p>
+        <p>
+          <select name="set2">
+            <% @sets.each do |set| %>
+            <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
+            <% end %>
+          </select>
+        </p>
+        <p>
+          <select name="set3">
+            <% @sets.each do |set| %>
+            <option value="<%= set.abbreviation %>"><%= set.name %> (<%= set.abbreviation.upcase %>)</option>
+            <% end %>
+          </select>
+        </p>
 
-      <div>
-        <%= submit_tag "Start Draft" %>
+        <div>
+          <%= submit_tag "Start Draft" %>
+        </div>
+        <% end %>
       </div>
-      <% end %>
+      <div class="homebottom">
+
+      </div>
     </td>
 
-    <!--Log of previous drafts -->
-    <td>
-      <h1>Draft History</h1>
-      <table>
-        <% @drafts.each do |draft| %>
-        <tr>
-          <td><img height="42" src="/assets/hand.png"/></td>
-          <td><%= draft.user_id %></td>
-          <td><%= draft.set1 %></td>
-          <td><%= draft.set2 %></td>
-          <td><%= draft.set3 %></td>
-          <td><%= link_to 'Open', draft_url(draft) %></td>
-          <td><%= link_to 'Delete', draft_url(draft), method: 'delete', data: { confirm: "Do you really want to delete this draft?" } %></td>
+    <td class="homeright">
+      <div class="homeside">
+        <!--Log of previous drafts -->
+        <h1>Draft History</h1>
+        <table>
+          <% @drafts.each do |draft| %>
+          <tr>
+            <td><img height="42" src="/assets/hand.png"/></td>
+            <td><%= draft.user_id %></td>
+            <td><%= draft.set1 %></td>
+            <td><%= draft.set2 %></td>
+            <td><%= draft.set3 %></td>
+            <td><%= link_to 'Open', draft_url(draft) %></td>
+            <td><%= link_to 'Delete', draft_url(draft), method: 'delete', data: { confirm: "Do you really want to delete this draft?" } %></td>
 
-        </tr>
-        <% end %>
-      </table>
+          </tr>
+          <% end %>
+        </table>
+      </div>
     </td>
   </tr>
-
 </table>
