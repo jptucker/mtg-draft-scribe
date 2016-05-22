@@ -1,79 +1,115 @@
-<h1><%= @draft.set1.upcase %> / <%= @draft.set2.upcase %> / <%= @draft.set3.upcase %> Draft
-<% if  @draft.color1.present? %>
-  <% if @draft.color1 == "black" %>
+<div class="centertitle">
+  <h1><%= @draft.set1.upcase %> / <%= @draft.set2.upcase %> / <%= @draft.set3.upcase %> Draft
+    <% if  @draft.color1.present? %>
+    <% if @draft.color1 == "black" %>
     <img src="/assets/colors/black.png" height="30px"/>
-  <% end %>
-  <% if @draft.color1 == "blue" %>
+    <% end %>
+    <% if @draft.color1 == "blue" %>
     <img src="/assets/colors/blue.png" height="30px"/>
-  <% end %>
-  <% if @draft.color1 == "green" %>
+    <% end %>
+    <% if @draft.color1 == "green" %>
     <img src="/assets/colors/green.png" height="30px"/>
-  <% end %>
-  <% if @draft.color1 == "red" %>
+    <% end %>
+    <% if @draft.color1 == "red" %>
     <img src="/assets/colors/red.png" height="30px"/>
-  <% end %>
-  <% if @draft.color1 == "white" %>
+    <% end %>
+    <% if @draft.color1 == "white" %>
     <img src="/assets/colors/white.png" height="30px"/>
-  <% end %>
-<% end %>
-<% if  @draft.color2.present? %>
-  <% if @draft.color2 == "black" %>
+    <% end %>
+    <% end %>
+    <% if  @draft.color2.present? %>
+    <% if @draft.color2 == "black" %>
     <img src="/assets/colors/black.png" height="30px"/>
-  <% end %>
-  <% if @draft.color2 == "blue" %>
+    <% end %>
+    <% if @draft.color2 == "blue" %>
     <img src="/assets/colors/blue.png" height="30px"/>
-  <% end %>
-  <% if @draft.color2 == "green" %>
+    <% end %>
+    <% if @draft.color2 == "green" %>
     <img src="/assets/colors/green.png" height="30px"/>
-  <% end %>
-  <% if @draft.color2 == "red" %>
+    <% end %>
+    <% if @draft.color2 == "red" %>
     <img src="/assets/colors/red.png" height="30px"/>
-  <% end %>
-  <% if @draft.color2 == "white" %>
+    <% end %>
+    <% if @draft.color2 == "white" %>
     <img src="/assets/colors/white.png" height="30px"/>
-  <% end %>
-<% end %>
-<% if  @draft.color3.present? %>
-  <% if @draft.color3 == "black" %>
+    <% end %>
+    <% end %>
+    <% if  @draft.color3.present? %>
+    <% if @draft.color3 == "black" %>
     <img src="/assets/colors/black.png" height="30px"/>
-  <% end %>
-  <% if @draft.color3 == "blue" %>
+    <% end %>
+    <% if @draft.color3 == "blue" %>
     <img src="/assets/colors/blue.png" height="30px"/>
-  <% end %>
-  <% if @draft.color3 == "green" %>
+    <% end %>
+    <% if @draft.color3 == "green" %>
     <img src="/assets/colors/green.png" height="30px"/>
-  <% end %>
-  <% if @draft.color3 == "red" %>
+    <% end %>
+    <% if @draft.color3 == "red" %>
     <img src="/assets/colors/red.png" height="30px"/>
-  <% end %>
-  <% if @draft.color3 == "white" %>
+    <% end %>
+    <% if @draft.color3 == "white" %>
     <img src="/assets/colors/white.png" height="30px"/>
-  <% end %>
-<% end %>
-</h1>
+    <% end %>
+    <% end %>
+  </h1>
+</div>
 
-<tbody>
-  <% @fullcardlist.each do |card| %>
-  <tr>
-    <div class="parent" >
-      <%= image_tag(card["image"]) %>
-      <div class="inner">
-        <%= link_to :controller => "selections", :action => 'delete', :selection_id => card["selection_id"] do %>
-        <img src="/assets/delete.png" height="40px"/>
-        <% end %>
-        <%= link_to :controller => "cards", :action => "sideboard", :selection_id => card["selection_id"] do %>
-        <% if card["is_sideboard"] %>
-          <img src="/assets/unsideboard.png" height="40px"/>
-        <% else %>
-          <img src="/assets/sideboard.png" height="40px"/>
-        <% end %>
-        <% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <!-- Card Search -->
+        <tbody>
+          <% if @hasResults  %>
+          <% @mtgcards.each do |mtgcard| %>
+          <tr>
+            <%= link_to :controller => "cards", :action => "add", :card_id => mtgcard.multiverse_id do %>
+            <%= image_tag(mtgcard.image_url, :class => "card") %>
+            <% end %>
+          </tr>
+          <% end %>
+          <% else %>
+          <tr>
+            <img class="card" src="/assets/NoResults.png"/>
+          </tr>
+          <% end %>
+        </tbody>
+
+        <form action="/cards/search" method="get">
+          <input type="text" name="q">
+          <input type="submit" value="Search">
+        </form>
+      </div>
+      <div class="row">
+        <!-- Graphs -->
+        <%= column_chart [{name: "Power Curve", data: @chart_power_seriesdata}] %>
+        <%= column_chart [{name: "Card Types", data: @chart_type_seriesdata}] %>
+        <%= pie_chart @chart_color_data, colors: @chart_color_colors %>
       </div>
     </div>
-  </tr>
-  <% end %>
-</tbody>
-
-<%= column_chart [{name: "Power Curve", data: @chart_power_seriesdata}] %>
-<%= column_chart [{name: "Card Types", data: @chart_type_seriesdata}] %>
-<%= pie_chart @chart_color_data, colors: @chart_color_colors %>
+    <div class="col-md-4">
+      <!-- Card List -->
+      <tbody>
+        <% @fullcardlist.each do |card| %>
+        <tr>
+          <div class="parent">
+            <%= image_tag(card["image"], :class => "card") %>
+            <div class="inner">
+              <%= link_to :controller => "selections", :action => 'delete', :selection_id => card["selection_id"] do %>
+              <img class="innericon" src="/assets/delete.png">
+              <% end %>
+              <%= link_to :controller => "cards", :action => "sideboard", :selection_id => card["selection_id"] do %>
+              <% if card["is_sideboard"] %>
+              <img class="innericon" src="/assets/unsideboard.png" />
+              <% else %>
+              <img class="innericon" src="/assets/sideboard.png" />
+              <% end %>
+              <% end %>
+            </div>
+          </div>
+        </tr>
+        <% end %>
+      </tbody>
+    </div>
+  </div>
+</div>

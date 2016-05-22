@@ -14,8 +14,6 @@
 *= require_self
 */
 
-
-
 .parent{
   position:relative;
   display: inline;
@@ -27,38 +25,10 @@
   left: 0;
 }
 
-/* Table layout formatting */
-.homelayout {
-  table-layout: fixed;
-  width: 100%;
-  height: 900px;
-  min-height: 100%;
+.card {
+  width: 200px;
 }
 
-.homeleft {
-  width: 70%;
-  height: 100%;
-}
-
-.homeright {
-  width: 30%;
-  height: 100%;
-}
-
-/* Column heights and widths are based on these cells */
-.hometop {
-  width: 100%;
-  height: 40%;
-  border-bottom: 2px solid black;
-}
-
-.homebottom {
-  width: 100%;
-  height: 60%;
-}
-
-.homeside {
-  width: 100%;
-  height: 100%;
-  border-left: 2px solid black;
+.innericon {
+  width: 40px;
 }
