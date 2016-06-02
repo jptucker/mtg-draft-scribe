@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require 'csv'
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'sets.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  t = Cardset.new
+  t.abbreviation = row['code']
+  t.name = row['name']
+  t.save
+end

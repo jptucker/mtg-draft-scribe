@@ -6,9 +6,33 @@ class DraftsController < ApplicationController
   end
 
   def show
+    # Card search code
+    if !params[:q].present?
+      @hasResults = false
+      # @mtgcards = MTG::Card.new
+    else
+      currentdraft = Draft.find_by(id: session[:draft_id])
+      set1 = currentdraft.set1
+      set2 = currentdraft.set2
+      set3 = currentdraft.set3
+      @mtgcards = MTG::Card.where(name: params[:q]).where(set: set1 + "," + set2 + "," + set3).all
+      if @mtgcards.size == 0
+        @hasResults = false
+      else
+        @hasResults = true
+        # remove double-faced
+        @mtgcards.each { |card|
+          if card.layout=="double-faced" && card.cmc.nil?
+            @mtgcards.delete(card)
+          end
+        }
+      end
+    end
+
     @draft = Draft.find_by(id: params[:id])
     session[:draft_id] = @draft.id
     selections = Selection.where(:draft_id => @draft.id)
+    selections.order(id: :desc)
     @fullcardlist = Array.new
     @cards = Array.new
     selections.each { |sel|

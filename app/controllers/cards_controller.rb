@@ -71,12 +71,12 @@ class CardsController < ApplicationController
       selection.draft_id = session[:draft_id]
       selection.card_id = card.id
       if selection.save
-        render 'search', notice: "Card created successfully."
+        redirect_to "/drafts/" + selection.draft_id.to_s
       else
-        render 'search', error: "Card creation failed."
+        redirect_to "/drafts/" + selection.draft_id.to_s, error: "Card creation failed."
       end
     else
-      render 'search', error: "Card creation failed."
+      redirect_to "/drafts/" + selection.draft_id.to_s, error: "Card creation failed."
     end
   end
 end

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # patch '/selections/:id', controller: 'selections', action: 'update'
 
   # DELETE
-  delete '/selections/:id', controller: 'selections', action: 'delete'
+  get '/delete_selection/:id', controller: 'selections', action: 'delete'
   #------------------------------
 
   # Routes for the Draft resource:

@@ -75,7 +75,7 @@
           <% end %>
         </tbody>
 
-        <form action="/cards/search" method="get">
+        <form action="/drafts/<%= @draft.id %>" method="get">
           <input type="text" name="q">
           <input type="submit" value="Search">
         </form>

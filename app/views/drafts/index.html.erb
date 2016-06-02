@@ -38,7 +38,59 @@
         <table>
           <% @drafts.each do |draft| %>
           <tr>
-            <td><img height="42" src="/assets/hand.png"/></td>
+            <td>
+              <% if draft.color1.present? %>
+              <% if draft.color1 == "black" %>
+              <img src="/assets/colors/black.png" height="30px"/>
+              <% end %>
+              <% if draft.color1 == "blue" %>
+              <img src="/assets/colors/blue.png" height="30px"/>
+              <% end %>
+              <% if draft.color1 == "green" %>
+              <img src="/assets/colors/green.png" height="30px"/>
+              <% end %>
+              <% if draft.color1 == "red" %>
+              <img src="/assets/colors/red.png" height="30px"/>
+              <% end %>
+              <% if draft.color1 == "white" %>
+              <img src="/assets/colors/white.png" height="30px"/>
+              <% end %>
+              <% end %>
+              <% if draft.color2.present? %>
+              <% if draft.color2 == "black" %>
+              <img src="/assets/colors/black.png" height="30px"/>
+              <% end %>
+              <% if draft.color2 == "blue" %>
+              <img src="/assets/colors/blue.png" height="30px"/>
+              <% end %>
+              <% if draft.color2 == "green" %>
+              <img src="/assets/colors/green.png" height="30px"/>
+              <% end %>
+              <% if draft.color2 == "red" %>
+              <img src="/assets/colors/red.png" height="30px"/>
+              <% end %>
+              <% if draft.color2 == "white" %>
+              <img src="/assets/colors/white.png" height="30px"/>
+              <% end %>
+              <% end %>
+              <% if draft.color3.present? %>
+              <% if draft.color3 == "black" %>
+              <img src="/assets/colors/black.png" height="30px"/>
+              <% end %>
+              <% if draft.color3 == "blue" %>
+              <img src="/assets/colors/blue.png" height="30px"/>
+              <% end %>
+              <% if draft.color3 == "green" %>
+              <img src="/assets/colors/green.png" height="30px"/>
+              <% end %>
+              <% if draft.color3 == "red" %>
+              <img src="/assets/colors/red.png" height="30px"/>
+              <% end %>
+              <% if draft.color3 == "white" %>
+              <img src="/assets/colors/white.png" height="30px"/>
+              <% end %>
+              <% end %>
+            </td>
             <td><%= draft.user_id %></td>
             <td><%= draft.set1 %></td>
             <td><%= draft.set2 %></td>
