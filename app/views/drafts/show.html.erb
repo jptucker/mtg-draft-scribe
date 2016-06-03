@@ -1,54 +1,54 @@
 <div class="centertitle">
   <h1><%= @draft.set1.upcase %> / <%= @draft.set2.upcase %> / <%= @draft.set3.upcase %> Draft
-    <% if  @draft.color1.present? %>
+    <% if @draft.color1.present? %>
     <% if @draft.color1 == "black" %>
-    <img src="/assets/colors/black.png" height="30px"/>
+    <%= image_tag "/assets/colors/black.png", size: "30" %>
     <% end %>
     <% if @draft.color1 == "blue" %>
-    <img src="/assets/colors/blue.png" height="30px"/>
+    <%= image_tag "/assets/colors/blue.png", size: "30" %>
     <% end %>
     <% if @draft.color1 == "green" %>
-    <img src="/assets/colors/green.png" height="30px"/>
+    <%= image_tag "/assets/colors/green.png", size: "30" %>
     <% end %>
     <% if @draft.color1 == "red" %>
-    <img src="/assets/colors/red.png" height="30px"/>
+    <%= image_tag "/assets/colors/red.png", size: "30" %>
     <% end %>
     <% if @draft.color1 == "white" %>
-    <img src="/assets/colors/white.png" height="30px"/>
+    <%= image_tag "/assets/colors/white.png", size: "30" %>
     <% end %>
     <% end %>
-    <% if  @draft.color2.present? %>
+    <% if @draft.color2.present? %>
     <% if @draft.color2 == "black" %>
-    <img src="/assets/colors/black.png" height="30px"/>
+    <%= image_tag "/assets/colors/black.png", size: "30" %>
     <% end %>
     <% if @draft.color2 == "blue" %>
-    <img src="/assets/colors/blue.png" height="30px"/>
+    <%= image_tag "/assets/colors/blue.png", size: "30" %>
     <% end %>
     <% if @draft.color2 == "green" %>
-    <img src="/assets/colors/green.png" height="30px"/>
+    <%= image_tag "/assets/colors/green.png", size: "30" %>
     <% end %>
     <% if @draft.color2 == "red" %>
-    <img src="/assets/colors/red.png" height="30px"/>
+    <%= image_tag "/assets/colors/red.png", size: "30" %>
     <% end %>
     <% if @draft.color2 == "white" %>
-    <img src="/assets/colors/white.png" height="30px"/>
+    <%= image_tag "/assets/colors/white.png", size: "30" %>
     <% end %>
     <% end %>
-    <% if  @draft.color3.present? %>
+    <% if @draft.color3.present? %>
     <% if @draft.color3 == "black" %>
-    <img src="/assets/colors/black.png" height="30px"/>
+    <%= image_tag "/assets/colors/black.png", size: "30" %>
     <% end %>
     <% if @draft.color3 == "blue" %>
-    <img src="/assets/colors/blue.png" height="30px"/>
+    <%= image_tag "/assets/colors/blue.png", size: "30" %>
     <% end %>
     <% if @draft.color3 == "green" %>
-    <img src="/assets/colors/green.png" height="30px"/>
+    <%= image_tag "/assets/colors/green.png", size: "30" %>
     <% end %>
     <% if @draft.color3 == "red" %>
-    <img src="/assets/colors/red.png" height="30px"/>
+    <%= image_tag "/assets/colors/red.png", size: "30" %>
     <% end %>
     <% if @draft.color3 == "white" %>
-    <img src="/assets/colors/white.png" height="30px"/>
+    <%= image_tag "/assets/colors/white.png", size: "30" %>
     <% end %>
     <% end %>
   </h1>
@@ -70,7 +70,7 @@
           <% end %>
           <% else %>
           <tr>
-            <img class="card" src="/assets/NoResults.png"/>
+            <%= image_tag "/assets/NoResults.png", class: "card" %>
           </tr>
           <% end %>
         </tbody>
@@ -96,13 +96,13 @@
             <%= image_tag(card["image"], :class => "card") %>
             <div class="inner">
               <%= link_to :controller => "selections", :action => 'delete', :selection_id => card["selection_id"] do %>
-              <img class="innericon" src="/assets/delete.png">
+              <%= image_tag "/assets/delete.png", class: "innericon" %>
               <% end %>
               <%= link_to :controller => "cards", :action => "sideboard", :selection_id => card["selection_id"] do %>
               <% if card["is_sideboard"] %>
-              <img class="innericon" src="/assets/unsideboard.png" />
+              <%= image_tag "/assets/unsideboard.png", class: "innericon" %>
               <% else %>
-              <img class="innericon" src="/assets/sideboard.png" />
+              <%= image_tag "/assets/sideboard.png", class: "innericon" %>
               <% end %>
               <% end %>
             </div>
