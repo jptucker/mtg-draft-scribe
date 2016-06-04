@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get("/", { :controller => "drafts", :action => "index" })
 
-  # Routes for the Cardset resource:
+  # Routes for the Cardset resource (kept as a sample):
   # CREATE
   # get '/cardsets/new', controller: 'cardsets', action: 'new', as: 'new_cardset'
   # post '/cardsets', controller: 'cardsets', action: 'create', as: 'cardsets'
@@ -21,58 +21,25 @@ Rails.application.routes.draw do
   #------------------------------
 
   # Routes for the Selection resource:
-  # CREATE
-  # get '/selections/new', controller: 'selections', action: 'new', as: 'new_selection'
-  # post '/selections', controller: 'selections', action: 'create', as: 'selections'
-
-  # READ
-  # get '/selections', controller: 'selections', action: 'index'
-  # get '/selections/:id', controller: 'selections', action: 'show', as: 'selection'
-
-  # UPDATE
-  # get '/selections/:id/edit', controller: 'selections', action: 'edit', as: 'edit_selection'
-  # patch '/selections/:id', controller: 'selections', action: 'update'
-
   # DELETE
   get '/delete_selection/:id', controller: 'selections', action: 'delete'
   #------------------------------
 
   # Routes for the Draft resource:
   # CREATE
-  # get '/drafts/new', controller: 'drafts', action: 'new', as: 'new_draft'
   post '/drafts', controller: 'drafts', action: 'create', as: 'drafts'
 
   # READ
   get '/drafts', controller: 'drafts', action: 'index'
   get '/drafts/:id', controller: 'drafts', action: 'show'
 
-  # UPDATE
-  # get '/drafts/:id/edit', controller: 'drafts', action: 'edit', as: 'edit_draft'
-  # patch '/drafts/:id', controller: 'drafts', action: 'update'
-
   # DELETE
   delete '/drafts/:id', controller: 'drafts', action: 'destroy'
   #------------------------------
 
   # Routes for the Card resource:
-  get '/cards/search', controller: 'cards', action: 'search'
   get '/cards/add', controller: 'cards', action: 'add'
   get '/cards/sideboard', controller: 'cards', action: 'sideboard'
-
-  # CREATE
-  # get '/cards/new', controller: 'cards', action: 'new', as: 'new_card'
-  # post '/cards', controller: 'cards', action: 'create', as: 'cards'
-
-  # READ
-  # get '/cards', controller: 'cards', action: 'index'
-  # get '/cards/:id', controller: 'cards', action: 'show', as: 'card'
-
-  # UPDATE
-  # get '/cards/:id/edit', controller: 'cards', action: 'edit', as: 'edit_card'
-  # patch '/cards/:id', controller: 'cards', action: 'update'
-
-  # DELETE
-  delete '/cards/:id', controller: 'cards', action: 'destroy'
 
   #------------------------------
 
